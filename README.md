@@ -1,8 +1,7 @@
 # Health Insurance Risk Calculator
 ## Information
 
-The developers of this project, Health Insurance Risk Calculator, are Benyamin Bamburac ([benyaminfbamburac@lewisu.edu](mailto:benyaminfbamburac@lewisu.edu)), Justin Ajuogu ([Justinajuogu@lewisu.edu
-](Justinajuogu@lewisu.edu)), and Aaron Rader ([AaronRader@lewisu.edu](mailto:AaronRader@lewisu.edu)).
+The developers of this project, Health Insurance Risk Calculator, are Benyamin Bamburac ([benyaminfbamburac@lewisu.edu](mailto:benyaminfbamburac@lewisu.edu)), Justin Ajuogu ([Justinajuogu@lewisu.edu](Justinajuogu@lewisu.edu)), and Aaron Rader ([AaronRader@lewisu.edu](mailto:AaronRader@lewisu.edu)).
 
 ## Statement of Originality
 All content in this project is original.
