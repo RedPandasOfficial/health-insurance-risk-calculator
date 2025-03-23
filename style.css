@@ -39,3 +39,11 @@
 #submit-btn:hover {
     background-color: #0056b3;
 }
+.dropdown-container {
+    margin-bottom: 10px;
+}
+
+select {
+    padding: 5px;
+    font-size: 14px;
+}
