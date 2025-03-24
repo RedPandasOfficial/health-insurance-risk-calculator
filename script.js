@@ -67,6 +67,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
         console.log("Inputs:", { feet, inches, weightLbs, age, bloodPressure, familyDisease });
 
+        // Update summary values
+        document.getElementById("summaryAge").textContent = `Age: ${age} years`;
+        document.getElementById("summaryHeight").textContent = `Height: ${feet} ft ${inches} in`;
+        document.getElementById("summaryWeight").textContent = `Weight: ${weightLbs} lbs`;
+        document.getElementById("summaryBloodPressure").textContent = `Blood Pressure: ${bloodPressureDropdown.options[bloodPressureDropdown.selectedIndex].text}`;
+        document.getElementById("summaryFamilyDisease").textContent = `Family Disease(s): ${familyDisease || 'None'}`;
+
         // Validate input
         if (!feet || !inches || !weightLbs || !age) {
             document.getElementById("insurabilityScore").textContent = "Score: Error";
@@ -80,37 +87,22 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("insurabilityScore").textContent = "Score: Calculating...";
         document.getElementById("riskLevel").textContent = "Risk Level: Calculating...";
 
-        // API calls
+        // API call to fetch BMI first
         const bmiUrl = `https://health-insurance-risk-calculator-api.azurewebsites.net/calculate-bmi?height_feet=${feet}&height_inches=${inches}&weight_pounds=${weightLbs}`;
-        const riskUrl = `https://health-insurance-risk-calculator-api.azurewebsites.net/score-risk?age=${age}&bmi=${bmi}&bp=${bloodPressure}&fd=${familyDisease}`;
-
-        console.log("API Calls:", { bmiUrl, riskUrl });
-
-        // Fetch BMI from API
         fetch(bmiUrl)
             .then(response => response.json())
             .then(bmiData => {
                 if (!bmiData.bmi) throw new Error("Invalid BMI response");
                 document.getElementById("summaryBMI").textContent = `BMI: ${bmiData.bmi}`;
+                
+                // Now call risk API using the BMI result
+                const riskUrl = `https://health-insurance-risk-calculator-api.azurewebsites.net/score-risk?age=${age}&bmi=${bmiData.bmi}&bp=${bloodPressure}&fd=${familyDisease}`;
+                return fetch(riskUrl);
             })
-            .catch(error => {
-                document.getElementById("summaryBMI").textContent = "BMI: Error";
-                console.error("BMI API Error:", error);
-            });
-
-        // Fetch Risk Score from API
-        fetch(riskUrl)
             .then(response => response.json())
             .then(riskData => {
-                if (!riskData.riskScore) throw new Error("Invalid risk score response");
-                document.getElementById("insurabilityScore").textContent = `Score: ${riskData.riskScore}`;
-
-                let riskLevel = "High Risk";
-                const score = parseFloat(riskData.riskScore);
-                if (score <= 20) riskLevel = "Low Risk";
-                else if (score <= 50) riskLevel = "Moderate Risk";
-
-                document.getElementById("riskLevel").textContent = `Risk Level: ${riskLevel}`;
+                document.getElementById("insurabilityScore").textContent = `Score: ${riskData.score}`;
+                document.getElementById("riskLevel").textContent = `Risk Level: ${riskData.risk}`;
             })
             .catch(error => {
                 document.getElementById("insurabilityScore").textContent = "Score: Error";
