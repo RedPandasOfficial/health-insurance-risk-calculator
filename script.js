@@ -1,3 +1,7 @@
+/**
+ * This may seem like a lot of code, but there are no actual
+ * calculations being done here.
+ */
 
 document.addEventListener("DOMContentLoaded", function() {
     // Height dropdown - Feet
@@ -40,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const bloodPressureDropdown = document.getElementById("bloodPressure");
     const bloodPressureOptions = {
         "normal": "Normal",
-        "elevated": "Prehypertension",
+        "elevated": "Elevated",
         "stage-1": "Hypertension Stage 1",
         "stage-2": "Hypertension Stage 2",
         "crisis": "Hypertensive Crisis"
@@ -53,6 +57,10 @@ document.addEventListener("DOMContentLoaded", function() {
         bloodPressureDropdown.appendChild(option);
     });
 
+	function capitalizeFirstLetter(str) {
+		return str.charAt(0).toUpperCase() + str.slice(1);
+	}
+
     // Handle submit button click
     document.getElementById("submitButton").addEventListener("click", function () {
         // Get user input
@@ -64,6 +72,9 @@ document.addEventListener("DOMContentLoaded", function() {
         const familyDisease = Array.from(document.getElementById("familyDisease").selectedOptions)
             .map(option => option.value)
             .join(",");
+		const familyDiseaseShow = Array.from(document.getElementById("familyDisease").selectedOptions)
+            .map(option => option.text)
+            .join(", ");
 
         console.log("Inputs:", { feet, inches, weightLbs, age, bloodPressure, familyDisease });
 
@@ -72,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("summaryHeight").textContent = `Height: ${feet} ft ${inches} in`;
         document.getElementById("summaryWeight").textContent = `Weight: ${weightLbs} lbs`;
         document.getElementById("summaryBloodPressure").textContent = `Blood Pressure: ${bloodPressureDropdown.options[bloodPressureDropdown.selectedIndex].text}`;
-        document.getElementById("summaryFamilyDisease").textContent = `Family Disease(s): ${familyDisease || 'None'}`;
+        document.getElementById("summaryFamilyDisease").textContent = `Family Disease(s): ${familyDiseaseShow || 'None'}`;
 
         // Validate input
         if (!feet || !inches || !weightLbs || !age) {
@@ -92,8 +103,9 @@ document.addEventListener("DOMContentLoaded", function() {
         fetch(bmiUrl)
             .then(response => response.json())
             .then(bmiData => {
-                if (!bmiData.bmi) throw new Error("Invalid BMI response");
-                document.getElementById("summaryBMI").textContent = `BMI: ${bmiData.bmi}`;
+				// BMI API outputs all lowercase, capitalize
+				// its first letter
+                document.getElementById("summaryBMI").textContent = `BMI: ${capitalizeFirstLetter(bmiData.bmi)}`;
                 
                 // Now call risk API using the BMI result
                 const riskUrl = `https://health-insurance-risk-calculator-api.azurewebsites.net/score-risk?age=${age}&bmi=${bmiData.bmi}&bp=${bloodPressure}&fd=${familyDisease}`;
@@ -102,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(response => response.json())
             .then(riskData => {
                 document.getElementById("insurabilityScore").textContent = `Score: ${riskData.score}`;
-                document.getElementById("riskLevel").textContent = `Risk Level: ${riskData.risk}`;
+                document.getElementById("riskLevel").textContent = `Risk Level: ${capitalizeFirstLetter(riskData.risk)}`;
             })
             .catch(error => {
                 document.getElementById("insurabilityScore").textContent = "Score: Error";
