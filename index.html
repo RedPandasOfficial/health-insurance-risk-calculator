@@ -84,5 +84,20 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+        // Fetch the /ping endpoint when the page loads
+        window.onload = function() {
+          fetch('http://localhost:5000/ping')  // Update with your actual API URL if needed
+            .then(response => response.json())
+            .then(data => {
+              console.log('Ping API Response:', data);
+              // Optionally handle success (e.g., update UI or log the data)
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              // Optionally handle error (e.g., show an error message)
+            });
+        };
+      </script>
 </body>
 </html>
