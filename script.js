@@ -65,6 +65,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         console.log("Inputs:", { feet, inches, weightLbs, age, bloodPressure, familyDisease });
 
+        // Update summary values
+        document.getElementById("summaryAge").textContent = `Age: ${age} years`;
+        document.getElementById("summaryHeight").textContent = `Height: ${feet} ft ${inches} in`;
+        document.getElementById("summaryWeight").textContent = `Weight: ${weightLbs} lbs`;
+        document.getElementById("summaryBloodPressure").textContent = `Blood Pressure: ${bloodPressureDropdown.options[bloodPressureDropdown.selectedIndex].text}`;
+        document.getElementById("summaryFamilyDisease").textContent = `Family Disease(s): ${familyDisease || 'None'}`;
+
         // Validate input
         if (!feet || !inches || !weightLbs || !age) {
             document.getElementById("insurabilityScore").textContent = "Score: Error";
@@ -92,15 +99,8 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .then(response => response.json())
             .then(riskData => {
-                if (!riskData.riskScore) throw new Error("Invalid risk score response");
-                document.getElementById("insurabilityScore").textContent = `Score: ${riskData.riskScore}`;
-
-                let riskLevel = "High Risk";
-                const score = parseFloat(riskData.riskScore);
-                if (score <= 20) riskLevel = "Low Risk";
-                else if (score <= 50) riskLevel = "Moderate Risk";
-
-                document.getElementById("riskLevel").textContent = `Risk Level: ${riskLevel}`;
+                document.getElementById("insurabilityScore").textContent = `Score: ${riskData.score}`;
+                document.getElementById("riskLevel").textContent = `Risk Level: ${riskData.risk}`;
             })
             .catch(error => {
                 document.getElementById("insurabilityScore").textContent = "Score: Error";
