@@ -1,33 +1,35 @@
-document.addEventListener("DOMContentLoaded", function () {
-    // Populate height dropdowns
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Height dropdown - Feet
     const feetDropdown = document.getElementById("heightFeet");
-    for (let i = 2; i <= 8; i++) {
+    for (let i = 2; i <= 8; i++) {  // Minimum height is 2 feet
         let option = document.createElement("option");
         option.value = i;
         option.text = i + " ft";
         feetDropdown.appendChild(option);
     }
 
+    // Height dropdown - Inches
     const inchesDropdown = document.getElementById("heightInches");
-    for (let i = 0; i <= 11; i++) {
+    for (let i = 0; i <= 11; i++) {  // Inches from 0 to 11
         let option = document.createElement("option");
         option.value = i;
         option.text = i + " in";
         inchesDropdown.appendChild(option);
     }
 
-    // Populate weight dropdown
+    // Weight dropdown
     const weightDropdown = document.getElementById("weight");
-    for (let i = 10; i <= 300; i += 5) {
+    for (let i = 10; i <= 300; i += 5) {  // Increment by 5 pounds
         let option = document.createElement("option");
         option.value = i;
         option.text = i + " lbs";
         weightDropdown.appendChild(option);
     }
 
-    // Populate age dropdown
+    // Age dropdown
     const ageDropdown = document.getElementById("age");
-    for (let i = 1; i <= 120; i++) {
+    for (let i = 1; i <= 120; i++) {  // Age range from 1 to 120
         let option = document.createElement("option");
         option.value = i;
         option.text = i + " years";
@@ -44,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "crisis": "Hypertensive Crisis"
     };
 
-    Object.keys(bloodPressureOptions).forEach(function (key) {
+    Object.keys(bloodPressureOptions).forEach(function(key) {
         let option = document.createElement("option");
         option.value = key;
         option.text = bloodPressureOptions[key];
@@ -116,4 +118,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("Risk API Error:", error);
             });
     });
+
+    // Fetch the /ping endpoint when the page loads
+    window.onload = function() {
+        fetch('https://health-insurance-risk-calculator-api.azurewebsites.net/ping')  // Update with your actual API URL if needed
+          .then(response => response.json())
+          .then(data => {
+            console.log('Ping API Response:', data);
+            // Optionally handle success (e.g., update UI or log the data)
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            // Optionally handle error (e.g., show an error message)
+          });
+      };
 });
