@@ -1,3 +1,7 @@
+body {
+	font-family: "Roboto", sans-serif;
+}
+
 #instructions {
     background-color: #f9f9f9;
     padding: 15px;
@@ -8,14 +12,18 @@
     margin: auto;
 }
 
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 5px #33333322;
+}
+
 #instructions h2 {
-    font-size: 20px;
+    font-size: 24px;
     color: #333;
     text-align: center;
 }
 
 #instructions ol {
-    padding-left: 20px;
+    padding-left: 32px;
 }
 
 #instructions li {
