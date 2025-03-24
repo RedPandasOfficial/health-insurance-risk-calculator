@@ -53,4 +53,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // No functionality for the submit button
     // Removed event listener for submit button since no action is needed
+    // Fetch the /ping endpoint when the page loads
+    window.onload = function() {
+        fetch('https://health-insurance-risk-calculator-api.azurewebsites.net/ping')  // Update with your actual API URL if needed
+          .then(response => response.json())
+          .then(data => {
+            console.log('Ping API Response:', data);
+            // Optionally handle success (e.g., update UI or log the data)
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            // Optionally handle error (e.g., show an error message)
+          });
+      };
 });
