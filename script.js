@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // API calls
         const bmiUrl = `https://health-insurance-risk-calculator-api.azurewebsites.net/calculate-bmi?height_feet=${feet}&height_inches=${inches}&weight_pounds=${weightLbs}`;
-        const riskUrl = `https://health-insurance-risk-calculator-api.azurewebsites.net/score-risk?age=${age}&bloodPressure=${bloodPressure}&familyHistory=${familyDisease}`;
+        const riskUrl = `https://health-insurance-risk-calculator-api.azurewebsites.net/score-risk?age=${age}&bmi=${bmi}&bp=${bloodPressure}&fd=${familyDisease}`;
 
         console.log("API Calls:", { bmiUrl, riskUrl });
 
