@@ -1,11 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Health Insurance Risk Calculator</title>
-		<meta charset="utf-8">
-		<link rel="stylesheet" type="text/css" href="style.css">
-	</head>
-	<body>
-		<script src="script.js"></script>
-	</body>
+<head>
+    <title>Health Insurance Risk Calculator</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+    <div id="instructions">
+        <h2>Health Insurance Risk Calculator Instructions</h2>
+        <p>Follow these steps to evaluate the health risk of a customer:</p>
+        <ol>
+            <li>Enter the customer's height in feet and inches.</li>
+            <li>Enter the customer's weight in pounds.</li>
+            <li>Enter the customer's age.</li>
+            <li>Select the customer's blood pressure category.</li>
+            <li>Check any family disease history (Diabetes, Cancer, Alzheimer’s).</li>
+            <li>Click the "Submit" button to calculate the risk score.</li>
+        </ol>
+        <p>The system will calculate the total risk score and display the risk category.</p>
+    </div>
+
+    <!-- Height Dropdown (Feet) -->
+    <div class="dropdown-container">
+        <label for="heightFeet">Height (Feet):</label>
+        <select id="heightFeet"></select>
+    </div>
+
+    <!-- Height Dropdown (Inches) -->
+    <div class="dropdown-container">
+        <label for="heightInches">Height (Inches):</label>
+        <select id="heightInches"></select>
+    </div>
+
+    <!-- Weight Dropdown -->
+    <div class="dropdown-container">
+        <label for="weight">Weight (Pounds):</label>
+        <select id="weight"></select>
+    </div>
+
+    <!-- Age Dropdown (Minimum 1) -->
+    <div class="dropdown-container">
+        <label for="age">Age:</label>
+        <select id="age"></select>
+    </div>
+
+    <!-- Blood Pressure Dropdown -->
+    <div class="dropdown-container">
+        <label for="bloodPressure">Blood Pressure:</label>
+        <select id="bloodPressure"></select>
+    </div>
+
+    <!-- Family Disease Dropdown (Multiple Selection) -->
+    <div class="dropdown-container">
+        <label for="familyDisease">Family Disease (Select multiple):</label>
+        <select id="familyDisease" multiple>
+            <option value="Diabetes">Diabetes</option>
+            <option value="Cancer">Cancer</option>
+            <option value="Alzheimer’s">Alzheimer’s</option>
+        </select>
+    </div>
+
+    <!-- Score and Risk Results Section -->
+    <div id="results">
+        <h3>Test Results</h3>
+        <p id="insurabilityScore">Score: N/A</p>
+        <p id="riskLevel">Risk Level: N/A</p>
+        
+        <h4>Values Used in Calculation:</h4>
+        <ul id="summary">
+            <li id="summaryAge">Age: N/A</li>
+            <li id="summaryHeight">Height: N/A</li>
+            <li id="summaryWeight">Weight: N/A</li>
+            <li id="summaryBloodPressure">Blood Pressure: N/A</li>
+            <li id="summaryFamilyDisease">Family Disease(s): N/A</li>
+            <li id="summaryBMI">BMI: N/A</li>
+        </ul>
+    </div>
+
+    <!-- Button that Does Nothing -->
+    <div class="button-container">
+        <button id="submitButton">Submit</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>
